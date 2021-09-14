@@ -1,48 +1,57 @@
 <template>
   <div class="home">
-    <h1>Home Component </h1>
-    <PostList v-if="showPosts" :posts="posts"/>
-    <button @click="showPosts = !showPosts">Toggle Posts</button>
-    <button @click="posts.pop()">Delete Post</button>
-
-    
-<!--
-    <input type="text" v-model="search">
-    <p>search term - {{ search }}</p>
--->
-
+    <h1>Home Component</h1>
+    <div v-if="error">{{ error }}</div>
+    <div v-if="posts.length">
+      <PostList :posts="posts"/>
+    </div>
+    <div v-else>Loading...</div>
   </div>
 </template>
 
 <script>
-import { computed, ref } from '@vue/reactivity'
-// import { watch, watchEffect } from '@vue/runtime-core'
 import PostList from '@/components/PostList.vue'
+import { ref } from '@vue/reactivity'
+// import { watch, watchEffect } from '@vue/runtime-core'
 // @ is an alias to /src
 
 export default {
   name: 'Home',
-  components: { 
-    PostList
-  },
+  components: { PostList },
   setup() {
     
-    
-    const posts = ref([
-      {title: 'Welcome to the blog', body: 'some text some text some text some text some text', id: 1},
-      {title: 'How to dockerize your vue', body: 'some text', id: 2}
-    ])
+    const posts = ref([])
+    const error = ref(null)
 
-    const showPosts = ref(true)
+    const load = async () => {
+      try {
+        let data = await fetch('http://localhost:3000/posts') 
+        if(!data.ok) {
+          throw Error('no data available')
+        }
+        posts.value = await data.json()
+        console.log(posts.value)
+      }
+      catch(err) {
+        error.value = err.message
+        console.log(error.value);
+      }
+    }
 
-    return { posts, showPosts }
+    load()
+
+    return { posts, error }
   }
 }
-</script>
-<style>
 
+</script>
+
+<style>
 button {
   cursor: pointer;
-}
-  
+}  
 </style>
+
+
+
+

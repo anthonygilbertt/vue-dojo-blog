@@ -1,6 +1,6 @@
 <template>
   <div class="post-list">
-  <h1>Post List Component</h1>
+  <h6>Post List Component</h6>
   <!--Cycle through some posts here-->
   <div v-for="post in posts" :key="post.id">
     <SinglePost :post="post" />
