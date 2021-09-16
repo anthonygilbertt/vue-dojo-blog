@@ -5,11 +5,11 @@
     <form @submit.prevent="handleSubmit">
       <label>Title:</label>
       <!-- I want to do a v-model for this-->
-      <input type="text" required />
+      <input v-model="title" type="text" required />
 
       <label>Content:</label>
       <!--I want to do a v-model for this-->
-      <textarea required></textarea>
+      <textarea v-model="body" required></textarea>
 
       <label>Tags (Hit enter to add a tag)</label>
       <!--I want to do a v-model for this-->
@@ -31,21 +31,24 @@
 //  - The endpoint is /posts to add a new post
 
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import Spinner from "@/components/Spinner.vue";
 
 export default {
   name: "Create",
   components: { Spinner },
   setup() {
-    const title = ref("");
-    const body = ref("");
-    const tag = ref("");
+    const title = ref('');
+    const body = ref('');
+    const tag = ref('');
     const tags = ref([]);
+
+    const router = useRouter()
 
     const handleKeydown = () => {
       if (!tags.value.includes(tag.value)) {
         //remove white spaces
-        tag.value = tag.value.replace(/\s/, "");
+        tag.value = tag.value.replace(/\s/, '');
         tags.value.push(tag.value);
       }
       tag.value = "";
@@ -63,6 +66,8 @@ export default {
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(post)
       })
+
+      router.push({ name: 'Home'})
     }
     return { body, title, tags, tag, handleKeydown, handleSubmit }
   },
