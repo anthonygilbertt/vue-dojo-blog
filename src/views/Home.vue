@@ -37,5 +37,10 @@ export default {
 <style>
 button {
   cursor: pointer;
-}  
+}
+.home {
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 10px;
+}
 </style>

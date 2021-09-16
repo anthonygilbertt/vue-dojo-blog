@@ -2,7 +2,7 @@
   <h5>Create Component</h5>
 
   <div class="create">
-    <form>
+    <form @submit.prevent="handleSubmit">
       <label>Title:</label>
       <!-- I want to do a v-model for this-->
       <input type="text" required />
@@ -24,6 +24,12 @@
 </template>
 
 <script>
+// Challenge
+//  - Add a submit event handler to the form
+//  - Inside of the handler. make a POST request to add a new post to db.json
+//  - Try using async & await to make the request
+//  - The endpoint is /posts to add a new post
+
 import { ref } from "vue";
 import Spinner from "@/components/Spinner.vue";
 
@@ -45,7 +51,20 @@ export default {
       tag.value = "";
     };
 
-    return { title, body, tag, handleKeydown, tags };
+    const handleSubmit = async () => {
+      const post = {
+        // id: Math.floor(Math.random() * 10000),
+        title: title.value,
+        body: body.value,
+        tags: tags.value
+      }
+      await fetch('http://localhost:3000/posts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify(post)
+      })
+    }
+    return { body, title, tags, tag, handleKeydown, handleSubmit }
   },
 };
 </script>
@@ -62,7 +81,7 @@ export default {
     width: 100%;
     box-sizing: border-box;
     padding: 10px;
-    border: 1px solid #eee;
+    border: 1px solid rgb(224, 224, 224);
   }
   textarea {
     height: 160px;
@@ -80,7 +99,7 @@ export default {
     display: block;
     width: 100%;
     height: 100%;
-    background: #ff8800;
+    background: #00ff55;
     position: absolute;
     z-index: -1;
     padding-right: 40px;
@@ -90,7 +109,7 @@ export default {
   button {
     display: block;
     margin-top: 30px;
-    background: #ff8800;
+    background: #00ff55;
     color: white;
     border: none;
     padding: 8px 16px;
