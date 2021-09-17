@@ -4,8 +4,19 @@
       <h3>{{ post.title }}</h3>
     </router-link>
     <p>{{ snippet }}</p>
-    <span v-for="tag in post.tags" :key="tag">
-    #{{ tag }}</span>
+    
+    <!-- This works-->
+    <!-- But, I need to make each of these tags clickable-->
+    <!-- So I can redirect the user to the /posts/tag route-->
+      <span v-for="tag in post.tags" :key="tag">
+        #{{ tag }}
+      </span>
+      
+    <!-- <router-link :to="{ name: 'Tag', params: { id: post.id }}">
+      <span v-for="tag in post.tags" :key="tag">
+      /posts/{{ post.tags }}
+      </span>
+    </router-link> -->
   </div>
 <!--
 -->
@@ -14,9 +25,11 @@
 
 <script>
 import { computed } from '@vue/reactivity'
+import Tag from '@/views/Tag.vue'
 
 export default {
     name: 'SinglePost',
+    components: { Tag },
     props: ['post'],
     setup(props) {
       const snippet = computed(() => {

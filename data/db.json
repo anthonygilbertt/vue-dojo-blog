@@ -46,6 +46,15 @@
         "test"
       ],
       "id": 5
+    },
+    {
+      "title": "Dockerizing a Vue App",
+      "body": "Vue Content",
+      "tags": [
+        "vue",
+        "docker"
+      ],
+      "id": 6
     }
   ]
 }
