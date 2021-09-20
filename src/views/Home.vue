@@ -2,8 +2,9 @@
   <div class="home">
     <h1>Home Component</h1>
     <div v-if="error">{{ error }}</div>
-    <div v-if="posts.length">
+    <div v-if="posts.length" class="layout">
       <PostList :posts="posts"/>
+      <TagCloud :posts="posts"/>
     </div>
     <div v-else>
       <Spinner />
@@ -15,6 +16,7 @@
 import PostList from '@/components/PostList.vue'
 import getPosts from '@/composables/getPosts.js'
 import Spinner from '@/components/Spinner.vue'
+import TagCloud from '@/components/TagCloud.vue'
 // import { watch, watchEffect } from '@vue/runtime-core'
 // @ is an alias to /src
 
@@ -22,11 +24,11 @@ export default {
   name: 'Home',
   components: {
     PostList,
-    Spinner
+    Spinner,
+    TagCloud
   },
   setup() {
     const { posts, error, load } = getPosts()
-
     load()
 
     return { posts, error }
@@ -35,12 +37,17 @@ export default {
 </script>
 
 <style>
-button {
-  cursor: pointer;
-}
-.home {
-  margin: 0 auto;
-  max-width: 1200px;
-  padding: 10px;
-}
+  button {
+    cursor: pointer;
+  }
+  .home {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px;
+  }
+  .layout {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 20px;
+  }
 </style>
