@@ -9,7 +9,9 @@ const getPost = (id) => {
 
     const load = async() => {
         try {
-            let getCollection = await projectFirestore.collection('posts').doc(id).get()
+            let getCollection = await projectFirestore.collection('posts').doc(id)
+                .orderBy('createdAt', 'desc')
+                .get()
 
             if (!getCollection.exists) {
                 throw Error('That post does not exist');
