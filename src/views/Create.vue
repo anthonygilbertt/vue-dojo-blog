@@ -30,7 +30,7 @@
 //  - Try using async & await to make the request
 //  - The endpoint is /posts to add a new post
 
-import { projectFirestore } from "@/firebase/config";
+import { projectFirestore, timestamp } from "@/firebase/config";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import Spinner from "@/components/Spinner.vue";
@@ -61,6 +61,7 @@ export default {
         title: title.value,
         body: body.value,
         tags: tags.value,
+        createdAt: timestamp(),
       };
       // JSON-SERVER Endpoint
       // await fetch('http://localhost:3000/posts', {
