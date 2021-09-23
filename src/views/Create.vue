@@ -24,13 +24,13 @@
 </template>
 
 <script>
-import { projectFirestore } from "@/firebase/config";
 // Challenge
 //  - Add a submit event handler to the form
 //  - Inside of the handler. make a POST request to add a new post to db.json
 //  - Try using async & await to make the request
 //  - The endpoint is /posts to add a new post
 
+import { projectFirestore } from "@/firebase/config";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import Spinner from "@/components/Spinner.vue";
