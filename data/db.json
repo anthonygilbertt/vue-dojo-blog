@@ -39,6 +39,15 @@
         "coding",
         "webdev"
       ]
+    },
+    {
+      "title": "How to create a Vue Blog App",
+      "body": "some content about creating a Vue blog app",
+      "tags": [
+        "vue",
+        "blog"
+      ],
+      "id": 9832
     }
   ]
 }
